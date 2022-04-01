@@ -1,10 +1,20 @@
 import time
 import win32gui, win32ui, win32con, win32api
-import cv2
 import pyautogui
 import statistics
 from ctypes import windll
 import numpy as np
+#两次操作间隔时间
+tx=0.0005
+#六个计时项目
+t1=[]
+t2=[]
+t3=[]
+t4=[]
+t5=[]
+t6=[]
+time.sleep(2)
+#找到数组中不一样的数组函数
 def compare(a):
     if all(a[0] == a[1]):
         x = 0
@@ -19,17 +29,9 @@ def compare(a):
         return 0
     else:
         return -1
-t1=[]
-t2=[]
-t3=[]
-t4=[]
-t5=[]
-t6=[]
-time.sleep(2)
-#开始按键
-pyautogui.click(950,850,button='left')
+
+#识别函数,m=x坐标,n=y坐标,p=间距,q=个数
 t = time.time()
-#识别,m=x坐标,n=y坐标,p=间距,q=个数
 def picture(m,n,p,q):
     global t
     t6.append(time.time() - t)
@@ -57,7 +59,10 @@ def picture(m,n,p,q):
     t5.append(time.time() - t)
     t = time.time()
     print([m+y%q*p, n+y//q*p])
-tx=0.0005
+
+#点击开始按键
+pyautogui.click(950,850,button='left')
+#图片识别
 picture(850,350,300,2)
 time.sleep(tx)
 picture(800,300,200,3)
@@ -96,6 +101,7 @@ try:
         time.sleep(tx)
 except:
     pass
+#显示每步平均用时
 mean1 = statistics.mean(t1)
 mean2 = statistics.mean(t2)
 mean3 = statistics.mean(t3)
